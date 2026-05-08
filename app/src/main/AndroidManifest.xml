@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MyApplicationProject">
+        <activity
+            android:name=".mantenimiento_checklist"
+            android:exported="false" />
+        <activity
+            android:name=".gestion_Tipos_Mantenimiento"
+            android:exported="false" />
+        <activity
+            android:name=".Perfil"
+            android:exported="false" />
+        <activity
+            android:name=".gestion_pilotos"
+            android:exported="false" />
+        <activity
+            android:name=".gestion_mantenimiento"
+            android:exported="false" />
+        <activity
+            android:name=".registro_vuelo"
+            android:exported="false" />
+        <activity
+            android:name=".flota_aeronave"
+            android:exported="false" />
+        <activity
+            android:name=".DashboardActivity"
+            android:exported="false" /> <!-- MainActivity0 es la pantalla de bienvenida (LAUNCHER) -->
+        <activity
+            android:name=".MainActivity0"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".crear_cuenta"
+            android:exported="false" /> <!-- MainActivity es el Login, no debe ser LAUNCHER si ya lo es MainActivity0 -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+    </application>
+
+</manifest>

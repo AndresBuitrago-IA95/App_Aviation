@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#B8D4E8"
+    tools:context=".gestion_Tipos_Mantenimiento">
+
+    <!-- HEADER -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#181143"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:contentDescription="Logo"
+            android:src="@drawable/data_aviation"
+            android:scaleType="centerInside" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:text="DatAviation"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnCerrarsesion"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:backgroundTint="#3949AB"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="Cerrar Sesión"
+            android:textColor="#FFFFFF"
+            android:textSize="11sp"
+            android:minHeight="0dp" />
+
+        <ImageButton
+            android:id="@+id/btnPerfil"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="8dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Perfil"
+            android:scaleType="centerCrop"
+            android:src="@drawable/perfil" />
+
+    </LinearLayout>
+
+    <!-- CONTENIDO SCROLLEABLE -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <!-- ============================= -->
+            <!-- SECCIÓN 1: MANTENIMIENTO EN LÍNEA -->
+            <!-- ============================= -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardBackgroundColor="#1A1A5E"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="12dp"
+                    android:text="Mantenimiento en Línea"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Checklist Aeronave:"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="#181143"
+                        android:layout_marginBottom="12dp" />
+
+                    <CheckBox android:id="@+id/chkAceite" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:text="Verificación de hojas de aceite"
+                        android:textSize="12sp" android:textColor="#333333" android:buttonTint="#3949AB" />
+
+                    <CheckBox android:id="@+id/chkFiltros" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:text="Estado de Filtros"
+                        android:textSize="12sp" android:textColor="#333333" android:buttonTint="#3949AB" />
+
+                    <CheckBox android:id="@+id/chkBujias" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:text="Ajuste de Bujías"
+                        android:textSize="12sp" android:textColor="#333333" android:buttonTint="#3949AB" />
+
+                    <CheckBox android:id="@+id/chkLubricacion" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:text="Lubricación"
+                        android:textSize="12sp" android:textColor="#333333" android:buttonTint="#3949AB" />
+
+                    <CheckBox android:id="@+id/chkCables" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:text="Tensión de cables de mandos"
+                        android:textSize="12sp" android:textColor="#333333" android:buttonTint="#3949AB" />
+
+                    <CheckBox android:id="@+id/chkNeumaticos" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:text="Revisión de presión de neumáticos"
+                        android:textSize="12sp" android:textColor="#333333" android:buttonTint="#3949AB" />
+
+                    <CheckBox android:id="@+id/chkHidraulico" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:text="Nivel líquido hidráulico"
+                        android:textSize="12sp" android:textColor="#333333" android:buttonTint="#3949AB" />
+
+                    <CheckBox android:id="@+id/chkDesgaste" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:text="Desgaste de frenos"
+                        android:textSize="12sp" android:textColor="#333333" android:buttonTint="#3949AB" />
+
+                    <CheckBox android:id="@+id/chkCorrosion" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:text="Inspección de corrosión"
+                        android:textSize="12sp" android:textColor="#333333" android:buttonTint="#3949AB" />
+
+                    <CheckBox android:id="@+id/chkRemaches" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:text="Verificación de Remaches sueltos"
+                        android:textSize="12sp" android:textColor="#333333" android:buttonTint="#3949AB" />
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:layout_marginTop="12dp" android:layout_marginBottom="12dp"
+                        android:background="#E0E0E0" />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Evidencias" android:textSize="13sp" android:textStyle="bold"
+                        android:textColor="#181143" android:layout_marginBottom="8dp" />
+
+                    <!-- Fila 1 PDFs -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:gravity="center" android:layout_marginBottom="8dp">
+                        <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp"
+                            android:layout_marginEnd="8dp" app:cardCornerRadius="8dp" app:cardBackgroundColor="#F44336" app:cardElevation="2dp">
+                            <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                                android:text="PDF" android:textColor="#FFFFFF" android:textStyle="bold" android:gravity="center" android:textSize="12sp"/>
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp"
+                            android:layout_marginEnd="8dp" app:cardCornerRadius="8dp" app:cardBackgroundColor="#F44336" app:cardElevation="2dp">
+                            <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                                android:text="PDF" android:textColor="#FFFFFF" android:textStyle="bold" android:gravity="center" android:textSize="12sp"/>
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp"
+                            android:layout_marginEnd="8dp" app:cardCornerRadius="8dp" app:cardBackgroundColor="#F44336" app:cardElevation="2dp">
+                            <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                                android:text="PDF" android:textColor="#FFFFFF" android:textStyle="bold" android:gravity="center" android:textSize="12sp"/>
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp"
+                            app:cardCornerRadius="8dp" app:cardBackgroundColor="#F44336" app:cardElevation="2dp">
+                            <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                                android:text="PDF" android:textColor="#FFFFFF" android:textStyle="bold" android:gravity="center" android:textSize="12sp"/>
+                        </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+
+                    <!-- Fila 2 PDFs -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:gravity="center" android:layout_marginBottom="16dp">
+                        <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp"
+                            android:layout_marginEnd="8dp" app:cardCornerRadius="8dp" app:cardBackgroundColor="#F44336" app:cardElevation="2dp">
+                            <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                                android:text="PDF" android:textColor="#FFFFFF" android:textStyle="bold" android:gravity="center" android:textSize="12sp"/>
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp"
+                            android:layout_marginEnd="8dp" app:cardCornerRadius="8dp" app:cardBackgroundColor="#F44336" app:cardElevation="2dp">
+                            <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                                android:text="PDF" android:textColor="#FFFFFF" android:textStyle="bold" android:gravity="center" android:textSize="12sp"/>
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp"
+                            android:layout_marginEnd="8dp" app:cardCornerRadius="8dp" app:cardBackgroundColor="#F44336" app:cardElevation="2dp">
+                            <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                                android:text="PDF" android:textColor="#FFFFFF" android:textStyle="bold" android:gravity="center" android:textSize="12sp"/>
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp"
+                            app:cardCornerRadius="8dp" app:cardBackgroundColor="#F44336" app:cardElevation="2dp">
+                            <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                                android:text="PDF" android:textColor="#FFFFFF" android:textStyle="bold" android:gravity="center" android:textSize="12sp"/>
+                        </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+
+                    <Button android:id="@+id/btnLiberarLinea" android:layout_width="match_parent"
+                        android:layout_height="36dp" android:text="Liberar Aeronave" android:textColor="#FFFFFF"
+                        android:textStyle="bold" android:textSize="13sp" android:backgroundTint="#D32F2F" android:minHeight="0dp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <!-- ============================= -->
+            <!-- SECCIÓN 2: MANTENIMIENTO CICLO DE VUELO -->
+            <!-- ============================= -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardBackgroundColor="#1A1A5E"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="12dp"
+                    android:text="Mantenimiento Ciclo de Vuelo"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Checklist Aeronave:" android:textSize="13sp" android:textStyle="bold"
+                        android:textColor="#181143" android:layout_marginBottom="12dp" />
+
+                    <CheckBox android:id="@+id/chkArranques" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:text="Verificación de arranques"
+                        android:textSize="12sp" android:textColor="#333333" android:buttonTint="#3949AB" />
+
+                    <CheckBox android:id="@+id/chkCiclosTecnicos" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:text="Ciclos Técnicos"
+                        android:textSize="12sp" android:textColor="#333333" android:buttonTint="#3949AB" />
+
+                    <CheckBox android:id="@+id/chkAterrizajes" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:text="Registro de aterrizajes"
+                        android:textSize="12sp" android:textColor="#333333" android:buttonTint="#3949AB" />
+
+                    <CheckBox android:id="@+id/chkHardTime" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:text="Verificación de piezas Hard Time"
+                        android:textSize="12sp" android:textColor="#333333" android:buttonTint="#3949AB" />
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:layout_marginTop="12dp" android:layout_marginBottom="12dp" android:background="#E0E0E0" />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Evidencias" android:textSize="13sp" android:textStyle="bold"
+                        android:textColor="#181143" android:layout_marginBottom="8dp" />
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:gravity="center" android:layout_marginBottom="16dp">
+                        <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp"
+                            android:layout_marginEnd="8dp" app:cardCornerRadius="8dp" app:cardBackgroundColor="#F44336" app:cardElevation="2dp">
+                            <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                                android:text="PDF" android:textColor="#FFFFFF" android:textStyle="bold" android:gravity="center" android:textSize="12sp"/>
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp"
+                            android:layout_marginEnd="8dp" app:cardCornerRadius="8dp" app:cardBackgroundColor="#F44336" app:cardElevation="2dp">
+                            <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                                android:text="PDF" android:textColor="#FFFFFF" android:textStyle="bold" android:gravity="center" android:textSize="12sp"/>
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp"
+                            android:layout_marginEnd="8dp" app:cardCornerRadius="8dp" app:cardBackgroundColor="#F44336" app:cardElevation="2dp">
+                            <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                                android:text="PDF" android:textColor="#FFFFFF" android:textStyle="bold" android:gravity="center" android:textSize="12sp"/>
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp"
+                            app:cardCornerRadius="8dp" app:cardBackgroundColor="#F44336" app:cardElevation="2dp">
+                            <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                                android:text="PDF" android:textColor="#FFFFFF" android:textStyle="bold" android:gravity="center" android:textSize="12sp"/>
+                        </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+
+                    <Button android:id="@+id/btnLiberarCiclo" android:layout_width="match_parent"
+                        android:layout_height="36dp" android:text="Liberar Aeronave" android:textColor="#FFFFFF"
+                        android:textStyle="bold" android:textSize="13sp" android:backgroundTint="#D32F2F" android:minHeight="0dp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <!-- ============================= -->
+            <!-- SECCIÓN 3: MANTENIMIENTO DE HANGAR -->
+            <!-- ============================= -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardBackgroundColor="#1A1A5E"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="12dp"
+                    android:text="Mantenimiento de Hangar"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Checklist Aeronave:" android:textSize="13sp" android:textStyle="bold"
+                        android:textColor="#181143" android:layout_marginBottom="12dp" />
+
+                    <CheckBox android:id="@+id/chkPruebasOverhaul" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:text="Verificación de pruebas próximo overhaul"
+                        android:textSize="12sp" android:textColor="#333333" android:buttonTint="#3949AB" />
+
+                    <CheckBox android:id="@+id/chkAltimetros" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:text="Calibración de altímetros"
+                        android:textSize="12sp" android:textColor="#333333" android:buttonTint="#3949AB" />
+
+                    <CheckBox android:id="@+id/chkTransponder" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:text="Calibración de transponder"
+                        android:textSize="12sp" android:textColor="#333333" android:buttonTint="#3949AB" />
+
+                    <CheckBox android:id="@+id/chkAeronavegabilidad" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:text="Directivas de Aeronavegabilidad"
+                        android:textSize="12sp" android:textColor="#333333" android:buttonTint="#3949AB" />
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:layout_marginTop="12dp" android:layout_marginBottom="12dp" android:background="#E0E0E0" />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Evidencias" android:textSize="13sp" android:textStyle="bold"
+                        android:textColor="#181143" android:layout_marginBottom="8dp" />
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:gravity="center" android:layout_marginBottom="16dp">
+                        <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp"
+                            android:layout_marginEnd="8dp" app:cardCornerRadius="8dp" app:cardBackgroundColor="#F44336" app:cardElevation="2dp">
+                            <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                                android:text="PDF" android:textColor="#FFFFFF" android:textStyle="bold" android:gravity="center" android:textSize="12sp"/>
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp"
+                            android:layout_marginEnd="8dp" app:cardCornerRadius="8dp" app:cardBackgroundColor="#F44336" app:cardElevation="2dp">
+                            <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                                android:text="PDF" android:textColor="#FFFFFF" android:textStyle="bold" android:gravity="center" android:textSize="12sp"/>
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp"
+                            android:layout_marginEnd="8dp" app:cardCornerRadius="8dp" app:cardBackgroundColor="#F44336" app:cardElevation="2dp">
+                            <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                                android:text="PDF" android:textColor="#FFFFFF" android:textStyle="bold" android:gravity="center" android:textSize="12sp"/>
+                        </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp"
+                            app:cardCornerRadius="8dp" app:cardBackgroundColor="#F44336" app:cardElevation="2dp">
+                            <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                                android:text="PDF" android:textColor="#FFFFFF" android:textStyle="bold" android:gravity="center" android:textSize="12sp"/>
+                        </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+
+                    <Button android:id="@+id/btnLiberarHangar" android:layout_width="match_parent"
+                        android:layout_height="36dp" android:text="Liberar Aeronave" android:textColor="#FFFFFF"
+                        android:textStyle="bold" android:textSize="13sp" android:backgroundTint="#D32F2F" android:minHeight="0dp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- BARRA DE NAVEGACIÓN INFERIOR -->
+    <LinearLayout
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#181143"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton android:id="@+id/btnNavHome" android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:background="#181143" android:contentDescription="Inicio"
+            android:padding="10dp" android:scaleType="centerInside" android:src="@drawable/casa" />
+
+        <ImageButton android:id="@+id/btnNavVuelos" android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:background="#181143" android:contentDescription="Vuelos"
+            android:padding="10dp" android:scaleType="centerInside" android:src="@drawable/avion" />
+
+        <ImageButton android:id="@+id/btnNavAeronaves" android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:background="#181143" android:contentDescription="Aeronaves"
+            android:padding="10dp" android:scaleType="centerInside" android:src="@drawable/registro" />
+
+        <ImageButton android:id="@+id/btnNavMantenimiento" android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:background="#3949AB" android:contentDescription="Mantenimiento"
+            android:padding="10dp" android:scaleType="centerInside" android:src="@drawable/mantenimiento" />
+
+        <ImageButton android:id="@+id/btnNavPerfil" android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:background="#181143" android:contentDescription="Perfil"
+            android:padding="10dp" android:scaleType="centerInside" android:src="@drawable/piloto" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
