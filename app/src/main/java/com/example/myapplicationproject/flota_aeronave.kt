@@ -6,123 +6,142 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ScrollView
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class flota_aeronave : AppCompatActivity() {
 
     private lateinit var database: DatabaseReference
     private lateinit var auth: FirebaseAuth
+    private val idsAeronaves = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_flota_aeronave)
 
-        // ── Inicializar Firebase ──────────────────────────────────────
         database = FirebaseDatabase.getInstance().reference
         auth = FirebaseAuth.getInstance()
 
-        // ── Referencias de UI (Header) ────────────────────────────────
         val btnPerfilHeader = findViewById<ImageButton>(R.id.btnPerfil)
         val btnCerrarSesion = findViewById<Button>(R.id.btnCerrarsesion)
-
-        // ── ScrollView (para hacer scroll al detalle) ─────────────────
         val scrollView = findViewById<ScrollView>(R.id.scrollView)
-
-        // ── Referencias de tabla ──────────────────────────────────────
-        val btnDetalle1 = findViewById<Button>(R.id.btnDetalle1)
-        val btnDetalle2 = findViewById<Button>(R.id.btnDetalle2)
-        val btnDetalle3 = findViewById<Button>(R.id.btnDetalle3)
 
         val cardDetalle1 = findViewById<CardView>(R.id.cardDetalle1)
         val cardDetalle2 = findViewById<CardView>(R.id.cardDetalle2)
         val cardDetalle3 = findViewById<CardView>(R.id.cardDetalle3)
 
-        // ── Referencias botones eliminar ──────────────────────────────
+        val btnDetalle1 = findViewById<Button>(R.id.btnDetalle1)
+        val btnDetalle2 = findViewById<Button>(R.id.btnDetalle2)
+        val btnDetalle3 = findViewById<Button>(R.id.btnDetalle3)
+
         val btnEliminar1 = findViewById<Button>(R.id.btnEliminarAeronave1)
         val btnEliminar2 = findViewById<Button>(R.id.btnEliminarAeronave2)
         val btnEliminar3 = findViewById<Button>(R.id.btnEliminarAeronave3)
 
-        // ── Referencias navegación inferior ───────────────────────────
-        val btnNavHome          = findViewById<ImageButton>(R.id.btnNavHome)
-        val btnNavVuelos        = findViewById<ImageButton>(R.id.btnNavVuelos)
-        val btnNavAeronaves     = findViewById<ImageButton>(R.id.btnNavAeronaves)
-        val btnNavMantenimiento = findViewById<ImageButton>(R.id.btnNavMantenimiento)
-        val btnNavPerfil        = findViewById<ImageButton>(R.id.btnNavPerfil)
+        cardDetalle1.visibility = View.GONE
+        cardDetalle2.visibility = View.GONE
+        cardDetalle3.visibility = View.GONE
 
-        // ── IDs de aeronaves en Firebase ──────────────────────────────
-        val idAeronave1 = "aeronave_001" // HK-1234
-        val idAeronave2 = "aeronave_002" // HK-5678
-        val idAeronave3 = "aeronave_003" // HK-9012
-
-        // ── Ocultar todas las tarjetas de detalle al inicio ───────────
-        fun ocultarTodos() {
+        fun mostrarDetalle(card: CardView) {
             cardDetalle1.visibility = View.GONE
             cardDetalle2.visibility = View.GONE
             cardDetalle3.visibility = View.GONE
-        }
-
-        ocultarTodos()
-
-        // ── Función para mostrar detalle y hacer scroll hacia él ──────
-        fun mostrarDetalle(card: CardView) {
-            ocultarTodos()
             card.visibility = View.VISIBLE
-
-            // Espera que el layout termine de dibujarse y luego hace scroll
-            card.post {
-                scrollView.smoothScrollTo(0, card.top)
-            }
+            card.post { scrollView.smoothScrollTo(0, card.top) }
         }
 
-        // ── Botones Detalle: muestran la tarjeta de la matrícula ──────
-        btnDetalle1.setOnClickListener { mostrarDetalle(cardDetalle1) } // HK-1234
-        btnDetalle2.setOnClickListener { mostrarDetalle(cardDetalle2) } // HK-5678
-        btnDetalle3.setOnClickListener { mostrarDetalle(cardDetalle3) } // HK-9012
+        btnDetalle1.setOnClickListener { mostrarDetalle(cardDetalle1) }
+        btnDetalle2.setOnClickListener { mostrarDetalle(cardDetalle2) }
+        btnDetalle3.setOnClickListener { mostrarDetalle(cardDetalle3) }
 
-        // ── Función reutilizable para eliminar aeronave ───────────────
-        fun eliminarAeronave(idAeronave: String, matricula: String, card: CardView) {
+        database.child("aeronaves").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                idsAeronaves.clear()
+                val aeronaves = snapshot.children.toList()
+                val cards = listOf(cardDetalle1, cardDetalle2, cardDetalle3)
+                val detalleBtns = listOf(btnDetalle1, btnDetalle2, btnDetalle3)
+                val eliminarBtns = listOf(btnEliminar1, btnEliminar2, btnEliminar3)
+
+                for (i in 0 until 3) {
+                    if (i < aeronaves.size) {
+                        val aeronave = aeronaves[i]
+                        val id = aeronave.key ?: continue
+                        val matricula = aeronave.child("matricula").getValue(String::class.java) ?: "-"
+                        val modelo = aeronave.child("modelo").getValue(String::class.java) ?: "-"
+                        val fabricante = aeronave.child("fabricante").getValue(String::class.java) ?: "-"
+                        val horas = aeronave.child("horas_vuelo_totales").getValue(Double::class.java) ?: 0.0
+                        val estado = aeronave.child("estado").getValue(String::class.java) ?: "Disponible"
+                        val anio = aeronave.child("anio_fabricacion").getValue(String::class.java) ?: "-"
+
+                        idsAeronaves.add(id)
+
+                        val card = cards[i]
+                        card.visibility = View.GONE
+
+                        val layout = card.getChildAt(0) as? android.widget.LinearLayout
+                        if (layout != null && layout.childCount >= 5) {
+                            (layout.getChildAt(1) as? TextView)?.text = "Matrícula: $matricula"
+                            (layout.getChildAt(2) as? TextView)?.text = "Modelo: $modelo  ($fabricante)"
+                            (layout.getChildAt(3) as? TextView)?.text = "Horas Totales: %.1f h".format(horas)
+                            (layout.getChildAt(4) as? TextView)?.text = "Estado: $estado  |  Año: $anio"
+                        }
+
+                        detalleBtns[i].isEnabled = true
+                        eliminarBtns[i].isEnabled = true
+                    } else {
+                        idsAeronaves.add("")
+                        detalleBtns[i].isEnabled = false
+                        eliminarBtns[i].isEnabled = false
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                android.widget.Toast.makeText(
+                    this@flota_aeronave,
+                    "Error cargando aeronaves: ${error.message}",
+                    android.widget.Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+
+        fun eliminarAeronave(index: Int, card: CardView) {
+            if (index >= idsAeronaves.size || idsAeronaves[index].isEmpty()) {
+                android.widget.Toast.makeText(this, "No hay aeronave en este slot", android.widget.Toast.LENGTH_SHORT).show()
+                return
+            }
+            val id = idsAeronaves[index]
             AlertDialog.Builder(this)
                 .setTitle("Eliminar Aeronave")
-                .setMessage("¿Estás seguro de que deseas eliminar la aeronave $matricula? Esta acción no se puede deshacer.")
+                .setMessage("¿Estás seguro de que deseas eliminar esta aeronave? Esta acción no se puede deshacer.")
                 .setPositiveButton("Eliminar") { _, _ ->
-                    database.child("aeronaves").child(idAeronave)
-                        .removeValue()
+                    database.child("aeronaves").child(id).removeValue()
                         .addOnSuccessListener {
                             card.visibility = View.GONE
-                            android.widget.Toast.makeText(
-                                this,
-                                "✅ Aeronave $matricula eliminada correctamente",
-                                android.widget.Toast.LENGTH_SHORT
-                            ).show()
+                            android.widget.Toast.makeText(this, "✅ Aeronave eliminada correctamente", android.widget.Toast.LENGTH_SHORT).show()
                         }
                         .addOnFailureListener { e ->
-                            android.widget.Toast.makeText(
-                                this,
-                                "❌ Error al eliminar: ${e.message}",
-                                android.widget.Toast.LENGTH_LONG
-                            ).show()
+                            android.widget.Toast.makeText(this, "❌ Error al eliminar: ${e.message}", android.widget.Toast.LENGTH_LONG).show()
                         }
                 }
                 .setNegativeButton("Cancelar", null)
                 .show()
         }
 
-        // ── Botones eliminar con confirmación ─────────────────────────
-        btnEliminar1.setOnClickListener { eliminarAeronave(idAeronave1, "HK-1234", cardDetalle1) }
-        btnEliminar2.setOnClickListener { eliminarAeronave(idAeronave2, "HK-5678", cardDetalle2) }
-        btnEliminar3.setOnClickListener { eliminarAeronave(idAeronave3, "HK-9012", cardDetalle3) }
+        btnEliminar1.setOnClickListener { eliminarAeronave(0, cardDetalle1) }
+        btnEliminar2.setOnClickListener { eliminarAeronave(1, cardDetalle2) }
+        btnEliminar3.setOnClickListener { eliminarAeronave(2, cardDetalle3) }
 
-        // ── Header ────────────────────────────────────────────────────
-        btnPerfilHeader.setOnClickListener {
-            startActivity(Intent(this, Perfil::class.java))
-        }
+        btnPerfilHeader.setOnClickListener { startActivity(Intent(this, Perfil::class.java)) }
 
-        // Cerrar sesión con Firebase → redirige a MainActivity0 (Login)
         btnCerrarSesion.setOnClickListener {
             auth.signOut()
             val intent = Intent(this, MainActivity0::class.java)
@@ -131,24 +150,19 @@ class flota_aeronave : AppCompatActivity() {
             finish()
         }
 
-        // ── Navegación inferior ───────────────────────────────────────
-        btnNavHome.setOnClickListener {
+        findViewById<ImageButton>(R.id.btnNavHome).setOnClickListener {
             startActivity(Intent(this, DashboardActivity::class.java))
         }
-
-        btnNavVuelos.setOnClickListener {
+        findViewById<ImageButton>(R.id.btnNavVuelos).setOnClickListener {
             startActivity(Intent(this, registro_vuelo::class.java))
         }
-
-        btnNavAeronaves.setOnClickListener {
-            // Ya estás en esta pantalla, no hace nada
+        findViewById<ImageButton>(R.id.btnNavAeronaves).setOnClickListener {
+            // Ya estás en esta pantalla
         }
-
-        btnNavMantenimiento.setOnClickListener {
+        findViewById<ImageButton>(R.id.btnNavMantenimiento).setOnClickListener {
             startActivity(Intent(this, gestion_mantenimiento::class.java))
         }
-
-        btnNavPerfil.setOnClickListener {
+        findViewById<ImageButton>(R.id.btnNavPerfil).setOnClickListener {
             startActivity(Intent(this, gestion_pilotos::class.java))
         }
     }

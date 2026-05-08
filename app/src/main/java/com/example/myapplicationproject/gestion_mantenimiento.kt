@@ -311,10 +311,10 @@ class gestion_mantenimiento : AppCompatActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             startActivity(intent)
         }
-        findViewById<ImageButton>(R.id.btnNavConfiguracion).setOnClickListener {
+        findViewById<ImageButton>(R.id.btnNavMantenimiento).setOnClickListener {
             // Ya estás en esta pantalla
         }
-        findViewById<ImageButton>(R.id.btnNavPerfil).setOnClickListener {
+        findViewById<ImageButton>(R.id.btnNavPiloto).setOnClickListener {
             val intent = Intent(this, gestion_pilotos::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             startActivity(intent)
